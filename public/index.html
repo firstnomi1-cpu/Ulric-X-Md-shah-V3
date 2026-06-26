@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Ulric-X MD | WhatsApp Bot Pairing</title>
+<link rel="icon" href="https://i.postimg.cc/yx314j9t/WA-1781354644910.jpg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <img src="https://i.postimg.cc/yx314j9t/WA-1781354644910.jpg" class="logo" alt="Ulric-X MD">
+    <h1>ULRIC-X MD</h1>
+    <div class="sub">Multi-User WhatsApp Bot &bull; v3.0 &bull; 1658+ Commands</div>
+    <div class="owner-badge"><i class="fas fa-crown"></i> Owner: ULRIC X SHAH</div>
+  </header>
+
+  <nav>
+    <a href="/" class="active"><i class="fas fa-link"></i> Pair</a>
+    <a href="/panel"><i class="fas fa-chart-bar"></i> Dashboard</a>
+    <a href="/admin"><i class="fas fa-user-shield"></i> Admin</a>
+  </nav>
+
+  <!-- ───── STATS ───── -->
+  <div class="cards">
+    <div class="card">
+      <div class="ico">📦</div>
+      <div class="label">Commands</div>
+      <div class="value" id="cmdCount">-</div>
+    </div>
+    <div class="card">
+      <div class="ico">👥</div>
+      <div class="label">Paired Users</div>
+      <div class="value" id="userCount">-</div>
+    </div>
+    <div class="card">
+      <div class="ico">🟢</div>
+      <div class="label">Online Now</div>
+      <div class="value" id="onlineCount">-</div>
+    </div>
+    <div class="card">
+      <div class="ico">⏱️</div>
+      <div class="label">Uptime</div>
+      <div class="value" id="uptime" style="font-size:18px;">-</div>
+    </div>
+  </div>
+
+  <!-- ───── PAIR HERO (TOP) ───── -->
+  <div class="pair-hero">
+    <h2><i class="fas fa-bolt"></i> INSTANT PAIR CODE</h2>
+    <div class="subtitle">Enter your WhatsApp number with country code to get a pairing code instantly</div>
+
+    <div class="pair-form">
+      <input type="tel" id="phone" placeholder="923189335011" maxlength="15" autocomplete="off" inputmode="numeric">
+      <button class="btn-primary" id="pairBtn" onclick="doPair()">
+        <i class="fas fa-bolt"></i> Get Pair Code
+      </button>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading-spinner" id="loading">
+      <div class="spinner"></div>
+      <div class="loading-text" id="loadingText">⚡ Generating pair code... WhatsApp is being contacted</div>
+    </div>
+
+    <!-- Error -->
+    <div class="pair-error" id="pairError">
+      <i class="fas fa-exclamation-circle"></i> <span id="errorMsg"></span>
+    </div>
+
+    <!-- Success -->
+    <div class="pair-result" id="pairResult">
+      <div class="pair-code-box">
+        <div class="pair-code-label">Your Pairing Code</div>
+        <div class="pair-code-value" id="codeValue">------</div>
+        <div class="pair-code-meta" id="codeMeta">Expires in 2 minutes</div>
+        <button class="copy-btn" onclick="copyCode()">
+          <i class="fas fa-copy"></i> Copy Code
+        </button>
+      </div>
+
+      <div class="instructions">
+        <h3><i class="fas fa-list-ol"></i> How to Link Your WhatsApp</h3>
+        <ol>
+          <li>Open <strong>WhatsApp</strong> on your phone</li>
+          <li>Tap <strong>Settings</strong> (top right corner)</li>
+          <li>Tap <strong>Linked Devices</strong></li>
+          <li>Tap <strong>Link a Device</strong></li>
+          <li>When asked for QR code, tap <strong>"Link with phone number instead"</strong></li>
+          <li>Enter the code shown above: <strong id="codeInline">------</strong></li>
+        </ol>
+        <div class="note">
+          <i class="fas fa-bell"></i>
+          <span>WhatsApp will send a notification to your phone. Tap the notification to directly open Linked Devices!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───── HOW IT WORKS ───── -->
+  <div class="panel">
+    <h2><i class="fas fa-info-circle"></i> How It Works</h2>
+    <div style="font-size:14px;color:#cbd5e1;line-height:1.8;">
+      <strong style="color:var(--primary)">1.</strong> Enter your WhatsApp number with country code (no + or spaces). Example: <span class="badge">923189335011</span><br>
+      <strong style="color:var(--primary)">2.</strong> Click <strong>Get Pair Code</strong> — code generates in seconds.<br>
+      <strong style="color:var(--primary)">3.</strong> WhatsApp will send a notification to your phone — tap it (or manually open WhatsApp → Linked Devices).<br>
+      <strong style="color:var(--primary)">4.</strong> Tap <strong>Link a Device</strong> → <strong>Link with phone number instead</strong>.<br>
+      <strong style="color:var(--primary)">5.</strong> Enter the 8-digit code shown above. Done! Send <code style="background:rgba(0,0,0,0.4);padding:2px 8px;border-radius:4px;color:var(--accent)">.menu</code> to your WhatsApp to see all commands.
+    </div>
+  </div>
+
+  <!-- ───── FEATURES ───── -->
+  <div class="panel">
+    <h2><i class="fas fa-star"></i> Features</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;font-size:13px;">
+      <div><i class="fas fa-bolt" style="color:var(--accent)"></i> <strong>Instant Pairing</strong><br><span style="color:var(--text-muted)">Real WhatsApp pair codes in seconds</span></div>
+      <div><i class="fas fa-shield-alt" style="color:var(--success)"></i> <strong>Persistent Sessions</strong><br><span style="color:var(--text-muted)">No logout — stays connected 24/7</span></div>
+      <div><i class="fas fa-box" style="color:var(--primary)"></i> <strong>1658+ Commands</strong><br><span style="color:var(--text-muted)">Across 22 categories</span></div>
+      <div><i class="fas fa-globe" style="color:var(--accent)"></i> <strong>100% Free APIs</strong><br><span style="color:var(--text-muted)">No paid keys required</span></div>
+      <div><i class="fas fa-download" style="color:var(--success)"></i> <strong>Media Downloader</strong><br><span style="color:var(--text-muted)">YT, TikTok, IG, FB, Twitter, APK</span></div>
+      <div><i class="fas fa-robot" style="color:var(--primary)"></i> <strong>AI Integrated</strong><br><span style="color:var(--text-muted)">Chat, images, code, translate</span></div>
+      <div><i class="fas fa-mosque" style="color:var(--accent)"></i> <strong>Religion Tools</strong><br><span style="color:var(--text-muted)">Quran, Hadith, Prayer times</span></div>
+      <div><i class="fas fa-gamepad" style="color:var(--success)"></i> <strong>Games & Fun</strong><br><span style="color:var(--text-muted)">200+ reactions, jokes, games</span></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    &copy; 2024 Ulric-X MD &bull; <span class="heart">❤</span> Built by ULRIC X SHAH<br>
+    Owner WhatsApp: +923189335011 &bull; Powered by Baileys &bull; 100% Free APIs
+  </div>
+
+</div>
+
+<script>
+let currentCode = null;
+let pairStartTime = 0;
+
+// Load stats
+async function loadState() {
+  try {
+    const r = await fetch('/api/state').then(r => r.json());
+    if (r.ok) {
+      document.getElementById('cmdCount').textContent = r.stats.totalCommands || 0;
+      document.getElementById('userCount').textContent = r.users.length;
+      document.getElementById('onlineCount').textContent = r.connections.filter(c => c.status === 'open').length;
+      document.getElementById('uptime').textContent = r.stats.uptime || '-';
+    }
+  } catch (e) { console.error(e); }
+}
+
+// Pair
+async function doPair() {
+  const phone = document.getElementById('phone').value.replace(/\D/g, '');
+  const btn = document.getElementById('pairBtn');
+  const loading = document.getElementById('loading');
+  const result = document.getElementById('pairResult');
+  const error = document.getElementById('pairError');
+  const loadingText = document.getElementById('loadingText');
+
+  // Hide previous results
+  result.classList.remove('show');
+  error.classList.remove('show');
+
+  // Validate
+  if (!phone) { showError('Please enter your WhatsApp number'); return; }
+  if (phone.length < 7) { showError('Number too short. Include country code.'); return; }
+  if (phone.length > 15) { showError('Number too long.'); return; }
+  if (phone.startsWith('0')) { showError('Remove leading 0. Use country code (e.g. 923xxx not 03xxx)'); return; }
+
+  // Show loading
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+  loading.classList.add('show');
+  loadingText.textContent = '⚡ Contacting WhatsApp servers...';
+
+  pairStartTime = Date.now();
+
+  // Animated loading text
+  const messages = [
+    '⚡ Contacting WhatsApp servers...',
+    '🔐 Requesting pair code...',
+    '📱 WhatsApp is preparing your code...',
+    '✨ Almost there...'
+  ];
+  let msgIdx = 0;
+  const msgInterval = setInterval(() => {
+    msgIdx = (msgIdx + 1) % messages.length;
+    loadingText.textContent = messages[msgIdx];
+  }, 2000);
+
+  try {
+    const r = await fetch('/api/pair', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ number: phone })
+    }).then(r => r.json());
+
+    clearInterval(msgInterval);
+    loading.classList.remove('show');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-bolt"></i> Get Pair Code';
+
+    if (r.ok && r.code) {
+      currentCode = r.code;
+      const elapsed = ((Date.now() - pairStartTime) / 1000).toFixed(1);
+      document.getElementById('codeValue').textContent = r.code;
+      document.getElementById('codeInline').textContent = r.code;
+      document.getElementById('codeMeta').innerHTML = `✅ Generated in ${r.elapsed || (elapsed*1000)}ms • Expires in 2 minutes`;
+      result.classList.add('show');
+      showToast('✅ Pair code generated! Check WhatsApp for notification', 'success');
+    } else {
+      showError(r.error || 'Failed to generate pair code');
+    }
+  } catch (e) {
+    clearInterval(msgInterval);
+    loading.classList.remove('show');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-bolt"></i> Get Pair Code';
+    showError('Network error: ' + e.message);
+  }
+}
+
+function showError(msg) {
+  const error = document.getElementById('pairError');
+  document.getElementById('errorMsg').textContent = msg;
+  error.classList.add('show');
+  showToast('❌ ' + msg, 'error');
+  setTimeout(() => error.classList.remove('show'), 6000);
+}
+
+function copyCode() {
+  if (!currentCode) return;
+  navigator.clipboard.writeText(currentCode).then(() => {
+    showToast('✅ Code copied to clipboard!', 'success');
+  });
+}
+
+function showToast(msg, type = '') {
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  t.innerHTML = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 4000);
+}
+
+// Enter key support
+document.getElementById('phone').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') doPair();
+});
+
+// Init
+loadState();
+setInterval(loadState, 10000);
+</script>
+</body>
+</html>
